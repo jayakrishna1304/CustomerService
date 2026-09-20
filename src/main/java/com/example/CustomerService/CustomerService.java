@@ -11,13 +11,13 @@ public class CustomerService {
     CustomerRepository customerdb;
     public String savetocustomerdb(Requestdto request){
         CustomerEntity customer =new CustomerEntity();
-        customer.setCustomer_id(request.getCustomer_id());
-        customer.setCustomer_name(request.getCustomer_name());
-        customer.setCustomer_email(request.getEmail());
-        customer.setCreated_at(request.getCreatedDate());
+        customer.setCustomerId(request.getCustomerId());
+        customer.setCustomerName(request.getCustomerName());
+        customer.setCustomerEmail(request.getEmail());
+        customer.setCreatedAt(request.getCreatedDate());
         System.out.println("Customer Controller:");
-        System.out.println("ID: " + request.getCustomer_id());
-        System.out.println("NAME: " + request.getCustomer_name());
+        System.out.println("ID: " + request.getCustomerId());
+        System.out.println("NAME: " + request.getCustomerName());
         System.out.println("EMAIL: " + request.getEmail());
         System.out.println("DATE: " + request.getCreatedDate());
         customerdb.save(customer);
@@ -27,18 +27,18 @@ public class CustomerService {
     public Optional<CustomerEntity> searchbyId(String id) {
         return customerdb.findById(id);
     }
-    public String updateCustomer(String id, UpdateCustomerDto request) {
+    public Optional<CustomerEntity> updateCustomer(String id, UpdateCustomerDto request) {
 
         Optional<CustomerEntity> optionalCustomer =
                 customerdb.findById(id);
 
         if (optionalCustomer.isEmpty()) {
-            return "Customer not found";
+            return optionalCustomer;
         }
 
         CustomerEntity customer = optionalCustomer.get();
 
-        customer.setCustomer_name(request.getCustomer_name());
+        customer.setCustomerName(request.getCustomer_name());
         customer.setPhone(request.getPhone());
         customer.setAddress(request.getAddress());
         customer.setCity(request.getCity());
@@ -46,7 +46,7 @@ public class CustomerService {
 
         customerdb.save(customer);
 
-        return "Customer updated successfully";
+        return Optional.of(customer);
     }
     public String deleteCustomer(String id) {
 

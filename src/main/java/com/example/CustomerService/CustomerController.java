@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/customers")
 @Tag(name = "Customer", description = "Customer management APIs")
@@ -37,11 +39,11 @@ public class CustomerController {
     @Operation(summary = "Update customer")
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updatingCustomer(
+    public ResponseEntity<Optional<CustomerEntity>> updatingCustomer(
             @PathVariable String id,
             @RequestBody UpdateCustomerDto request) {
 
-        String result = service.updateCustomer(id, request);
+        Optional<CustomerEntity> result = service.updateCustomer(id, request);
 
         if (result.equals("Customer not found")) {
             return ResponseEntity.notFound().build();

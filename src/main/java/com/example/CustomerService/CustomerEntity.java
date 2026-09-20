@@ -1,5 +1,6 @@
 package com.example.CustomerService;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -13,17 +14,41 @@ import java.util.Date;
 @Getter
 @Setter
 public class CustomerEntity {
+
     @Id
-    private int customer_id;
-    private String customer_name;
-    private String customer_email;
-    private String customer_phone_no;
+    @Column(name = "customer_id")
+    private Integer customerId;
+
+    @Column(name = "customer_name")
+    private String customerName;
+
+    @Column(name = "customer_email")
+    private String customerEmail;
+
+    @Column(name = "customer_phone_no")
+    private String customerPhoneNo;
+
+    @Column(name = "address")
     private String address;
+
+    @Column(name = "city")
     private String city;
-    private String Phone;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "state")
     private String state;
+
+    @Column(name = "country")
     private String country;
+
+    @Column(name = "pincode")
     private String pincode;
-    private Date created_at;
-    private Date updated_at;
+
+    @Column(name = "created_at", updatable = false)
+    private Date createdAt;
+
+    @Column(name = "updated_at")
+    private Date updatedAt;
 }
